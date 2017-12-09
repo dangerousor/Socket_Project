@@ -2,7 +2,8 @@
 # -*- coding:utf-8 -*-
 
 import socket
-from multiprocessing import Process
+# from multiprocessing import Process
+from threading import Thread
 
 from func import linker
 
@@ -14,5 +15,6 @@ s.bind((host, port))
 s.listen(4)
 while True:
     conn, addr = s.accept()
-    p = Process(target=linker, args=(conn, addr))
+    # p = Process(target=linker, args=(conn, addr))
+    p = Thread(target=linker, args=(conn, addr))
     p.start()
