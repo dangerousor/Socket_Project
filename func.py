@@ -9,6 +9,7 @@ def linker(sock, addr):
     while True:
         data = sock.recv(1024)
         time.sleep(1)
+        print data
         if not data or data.decode('utf-8') == 'exit':
             break
         sock.send('Hello, %s!' % data)
