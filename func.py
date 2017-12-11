@@ -13,8 +13,9 @@ def linker(sock, addr):
             print 'Connection from %s:%s closed...' % addr
             exit(0)
         data_json = json.loads(data, 'utf-8')
-        if data_json['username'] == 'dangerousor' and data_json['password'] == 'network':
-            sock.send(json.dumps({'status': 'success', 'username': 'dangerousor'}))
+        # if data_json['username'] == 'dangerousor' and data_json['password'] == 'network':
+        if data_json['username'] == '123' and data_json['password'] == '123':
+            sock.send(json.dumps({'status': 'success'}))
             break
         else:
             sock.send(json.dumps({'status': 'failure'}))
