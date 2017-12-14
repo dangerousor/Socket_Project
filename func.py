@@ -131,7 +131,7 @@ def linker(sock, addr):
             chapter = bodypart['chapter']
             page = bodypart['page']
             message = makeNovelSendJson(bigchapter, chapter, page, contentjson)
-            send_all(sock, 401, repr({'chaptername': chaptername, 'content': message['content']}))
+            send_all(sock, 401, repr(message))
     sock.close()
     print 'Connection from %s:%s closed...' % addr
 

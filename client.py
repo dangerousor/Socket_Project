@@ -145,7 +145,7 @@ class mainFrame(Frame):
         self.checkButton = Button(self, text='查看书签', command=self.checkMark)
         # self.unlikeButton.grid(in_=self, row=0, column=1, ipady=5)
         self.checkButton.place(x=10, y=5, width=60, height=30)
-        self.likeButton = Button(self, text='添加书签并添加后面的评论：', command=self.addMark)
+        self.likeButton = Button(self, text='添加书签并添加后面的备注：', command=self.addMark)
         # self.likeButton.grid(in_=self, row=0, column=0, ipady=5)
         self.likeButton.place(x=80, y=5, width=230, height=30)
         self.commentMark = Entry(self)
@@ -165,7 +165,7 @@ class mainFrame(Frame):
         self.freelikeButton = Button(self, text='清空书签', command=self.freeMark)
         # self.unlikeButton.grid(in_=self, row=0, column=1, ipady=5)
         self.freelikeButton.place(x=910, y=5, width=60, height=30)
-        self.jumpPageButton = Button(self, text='跳转页号：', command=self.jumpMark)
+        self.jumpPageButton = Button(self, text='跳转页号：', command=self.jumpPage)
         # self.unlikeButton.grid(in_=self, row=0, column=1, ipady=5)
         self.jumpPageButton.place(x=1000, y=5, width=120, height=30)
         self.jumpPageNumb = Entry(self)
@@ -217,7 +217,11 @@ class mainFrame(Frame):
         self.focus_set()
 
     def delMark(self):
-        number = int(self.delNumb.get())
+        number = self.delNumb.get()
+        if number == '':
+            return
+        else:
+            number = int(number)
         if 0 < number <= len(self.marks):
             check = messageBox.askyesno('删除书签', '是否删除书签%d：%s' % (number, self.marks[number-1]['comment'].encode('utf-8')))
             if check is False:
@@ -246,7 +250,11 @@ class mainFrame(Frame):
         self.focus_set()
 
     def jumpMark(self):
-        number = int(self.delNumb.get())
+        number = self.jumpNumb.get()
+        if number == '':
+            return
+        else:
+            number = int(number)
         if 0 < number <= len(self.marks):
             check = messageBox.askyesno('跳转书签', '是否跳转到书签%d：%s' % (number, self.marks[number - 1]['comment'].encode('utf-8')))
             if check is False:
@@ -270,10 +278,16 @@ class mainFrame(Frame):
 
     def jumpPage(self, page=None):
         if page is None:
-            page = int(self.jumpPageNumb.get())
+            page = self.jumpPageNumb.get()
+            if page == '':
+                return
+            else:
+                page = int(page)
         if 0 < page <= self.totalPage.get():
             self.thisPage.set(self.novel[page - 1])
             self.currentPage.set(page)
+        else:
+            messageBox.showerror('错误', '请输入正确的数字')
         self.focus_set()
 
     def jumpLast(self, event=None):
