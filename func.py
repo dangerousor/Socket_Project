@@ -5,8 +5,6 @@
 import struct
 
 
-HOST = 'localhost'
-PORT = 9000
 BUFF = bytes()
 HEADERSIZE = 8
 # message Max 4GB
